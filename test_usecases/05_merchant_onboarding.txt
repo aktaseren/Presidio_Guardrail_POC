@@ -1,0 +1,18 @@
+Merchant Onboarding Notes — Retail Partner
+
+Primary Contact:
+Name: Emma Fitzgerald
+Email: emma@retailpartner.ie
+Phone: +353 86 555 7788
+
+Business Address:
+12 Market Street
+Cork, Ireland
+
+Test Transaction Details:
+Test Card Number: 5555 4444 3333 1111
+Test Amount: €1.00
+Processor Response: Approved
+
+Integration Notes:
+The merchant successfully completed the API authentication flow and webhook registration.

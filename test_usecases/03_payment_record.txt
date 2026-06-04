@@ -1,0 +1,16 @@
+Transaction Record — Internal Review
+
+Customer Name: Michael Byrne
+Email: michael.byrne@mail.com
+
+Card Details:
+Card Number: 4111 1111 1111 1111
+Expiry Date: 09/27
+CVV: 123
+
+Transaction Amount: €249.99
+Merchant: Online Electronics Store
+Transaction ID: TXN-99384721
+
+Notes:
+Customer called to confirm the transaction was legitimate.

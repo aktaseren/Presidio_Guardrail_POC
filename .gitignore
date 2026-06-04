@@ -1,0 +1,17 @@
+cat <<EOF > .gitignore
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+presidio_poc/
+venv/
+.venv/
+lib/
+bin/
+include/
+
+# macOS
+.DS_Store
+EOF
+

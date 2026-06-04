@@ -1,0 +1,6 @@
+streamlit
+presidio-analyzer
+presidio-anonymizer
+spacy
+pypdf
+#pyarrow==14.0.2 # if you have pyarrow-streamlio issue
