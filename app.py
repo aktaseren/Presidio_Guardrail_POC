@@ -31,15 +31,28 @@ if uploaded_file:
             results = scan_text(text)
             report = build_risk_report(results)
             decision = policy_decision(report)
-            confidence_data = []
-            for r in results:
-                confidence_data.append({
-                    "Entity": r.entity_type,
-                    "Start": r.start,
-                    "End": r.end,
-                    "Confidence": round(r.score, 2),
-                    "Matched Text": text[r.start:r.end]
-                })
+        st.session_state["scan_result"] = {
+            "text": text,
+            "results": results,
+            "report": report,
+            "decision": decision,
+        }
+
+    scan_result = st.session_state.get("scan_result")
+    if scan_result and scan_result["text"] == text:
+        results = scan_result["results"]
+        report = scan_result["report"]
+        decision = scan_result["decision"]
+
+        confidence_data = []
+        for r in results:
+            confidence_data.append({
+                "Entity": r.entity_type,
+                "Start": r.start,
+                "End": r.end,
+                "Confidence": round(r.score, 2),
+                "Matched Text": text[r.start:r.end]
+            })
 
         col1, col2 = st.columns(2)
 
@@ -63,17 +76,18 @@ if uploaded_file:
 
         with col2:
             st.subheader("Redacted Document")
+            content_to_store = text
             if decision == "BLOCK":
                 st.info("This document was blocked due to PCI data. No content is displayed or stored.")
             elif decision == "REDACT":
                 PII_ENTITIES = ["PERSON", "EMAIL_ADDRESS", "PHONE_NUMBER", "LOCATION", "INTERNAL_ID"]
                 filtered_results = [r for r in results if r.entity_type in PII_ENTITIES]
-                redacted = redact_text(text, filtered_results)
-                st.text_area("Redacted", redacted, height=250)
+                content_to_store = redact_text(text, filtered_results)
+                st.text_area("Redacted", content_to_store, height=250)
             else:
                 st.text_area("Approved (No Redaction Needed)", text, height=250)
 
         if decision != "BLOCK":
             if st.button("Send to Vector DB"):
-                embed_and_store(redacted)
+                embed_and_store(content_to_store)
                 st.success("Stored in vector DB (stub)")
